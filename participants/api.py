@@ -42,8 +42,8 @@ class Cheating(View):
         participant = request.user.username
 
         email = User.objects.get(username=creatorname).email
-        email_subject = 'Participant Cheating'
-        email_body = 'Participant caught changing window for 5 times. Participant username is :' + participant
+        email_subject = 'Cheating Alert'
+        email_body = f'Participant {participant} has changed windows 5 times.'
         email_from = 'noreply@game.com'
         email_obj = EmailMessage(
             email_subject,

@@ -167,7 +167,7 @@ def participant_view_previous(request):
         'completed': completed
     }
 
-    return render(request,'games/previous_participants.html', context)
+    return render(request,'games/previous-participant.html', context)
 
 
 @login_required(login_url='units:login')

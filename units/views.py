@@ -40,7 +40,7 @@ class SignUpView(View):
             domain = get_current_site(request).domain
             
             email_subject = 'Activate your AGE unit account'
-            email_body = f'Hello. Please contact the admin team of {domain} to sign up yourself as a creator.\n\nYou are receiving this message because you signed up on {domain}. If you didn\'t sign up please contact support team on {domain}'
+            email_body = f'Hello. Please contact the {domain} administrators to sign up yourself as a creator.\n\n\n\nYou are receiving this message because you signed up on {domain}. If this is not you, please contact support at {domain}.'
             email_from = 'vitmihkov@ya.ru'
             
             email = EmailMessage(
@@ -58,7 +58,7 @@ class SignUpView(View):
                 
             participant_info.save()
             
-            messages.success(request, 'Successfull sign up. Check your email for confirmation')
+            messages.success(request, 'Signed up successfully. Check your email for confirmation')
             
             EmailThread(email).start()
             
@@ -101,7 +101,7 @@ class LoginView(View):
                 return redirect('units:home')
 
             elif not group_member and exist:
-                messages.error(request, 'You dont have permssions to login as units.')
+                messages.error(request, 'Not allowed')
 
                 return render(request, 'units/login.html')
 

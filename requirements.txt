@@ -1,9 +1,9 @@
-﻿-i https://pypi.org/simple/
-argon2-cffi
+﻿argon2-cffi
 asgiref
 bcrypt
 cffi
 Django
+django-environ
 emailvalidator
 Pillow
 pycparser

@@ -56,7 +56,7 @@ class SignUpView(View):
 
             activate_url = f'http://{domain}{link}'
             email_subject = 'Activate your AGE account'
-            email_body = f'Hi.Please use this link to verify your account\n{activate_url}.\n\n You are receiving this message because you SignUped on {domain}. If you didnt sign up please contact support team on {domain}'
+            email_body = f'Please use this link to confirm your account:\n{activate_url}\n\n\n\nYou are receiving this message because you signed up on {domain}. If this is not you, please contact support at {domain}.'
             email_from = 'vitmihkov@yandex.ru'
             email = EmailMessage(
                 email_subject,
@@ -74,7 +74,7 @@ class SignUpView(View):
 
             participant_info.save()
 
-            messages.success(request, 'Signed up Succesfully. Check Email for confirmation')
+            messages.success(request, 'Signed up successfully. Check your email for confirmation')
 
             EmailThread(email).start()
 
@@ -105,39 +105,19 @@ class LoginView(View):
                 if user_ch.is_staff:
                     messages.error(
                         request,
-                        'You are trying to login as participant, but you have SignUped as units. We are redirecting you to unit login. If you are having problem in logging in please reset password or contact admin',
+                        'You are trying to log in as a participant, but you signed up as a creator. You will be redirected to the creator login. If you have trouble logging in, please reset your password or contact an administrator.',
                     )
 
                     return redirect('units:login')
 
             user = auth.authenticate(username=username, password=password)
 
-            if user:
-                if user.is_active:
-                    auth.login(request, user)
-                    participant_preference = ParticipantPreference.objects.filter(user=request.user).exists()
-                    email_to = User.objects.get(username=username).email
+            if user and user.is_active:
+                auth.login(request, user)
 
-                    email_subject = 'You Logged into your Portal account'
-                    email_body = 'If you think someone else logged in. Please contact support or reset your password.\n\nYou are receving this message because you have enabled login email notifications in portal settings. If you dont want to recieve such emails in future please turn the login email notifications off in settings.'
-                    email_from = 'vitmihkov@ya.ru'
-                    email = EmailMessage(
-                        email_subject,
-                        email_body,
-                        email_from,
-                        [email_to]
-                    )
+                messages.success(request, f'Welcome, {user.username}')
 
-                    if participant_preference:
-                        participant = ParticipantPreference.objects.get(user=request.user)
-                        send_email = participant.send_email
-
-                    if not participant_preference or send_email:
-                        EmailThread(email).start()
-
-                    messages.success(request, f'Welcome, {user.username}')
-
-                    return redirect('participants:home')
+                return redirect('participants:home')
 
             else:
                 user_n = User.objects.filter(username=username).exists()
@@ -149,7 +129,7 @@ class LoginView(View):
 
                         return render(request, 'participant/login.html')
 
-                    messages.error(request, 'Account not Activated')
+                    messages.error(request, 'Account not activated')
 
                     return render(request, 'participant/login.html')
 
@@ -162,7 +142,7 @@ class LogoutView(View):
     def post(self, request):
         auth.logout(request)
 
-        messages.success(request, 'Logged Out')
+        messages.success(request, 'Logged out')
 
         return redirect('participants:login')
 
@@ -185,7 +165,7 @@ class VerificationView(View):
             user = User.objects.get(pk=id)
 
             if not account_activation_token.check_token(user, token):
-                messages.error(request, 'User already Activated. Please Proceed With Login')
+                messages.error(request, 'User already activated. Please proceed with login')
 
                 return redirect('participants:login')
 
@@ -196,7 +176,7 @@ class VerificationView(View):
 
             user.save()
 
-            messages.success(request, 'Account activated Sucessfully')
+            messages.success(request, 'Account activated sucessfully')
 
             return redirect('participants:login')
         except Exception as e:

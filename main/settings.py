@@ -1,4 +1,5 @@
 import os
+import environ
 from pathlib import Path
 from django.contrib.messages import constants as messages
 from django.urls.base import reverse_lazy
@@ -21,6 +22,12 @@ SECRET_KEY = 'Vitaly'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+
+# Environment
+
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # Application definition
@@ -147,8 +154,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'vitmihkov@ya.ru'
-EMAIL_HOST_PASSWORD = 'oawnwbtjkbivzhiv'
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_SERVER = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 
