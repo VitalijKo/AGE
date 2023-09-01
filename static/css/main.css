@@ -1,0 +1,238 @@
+body {
+    font-family: cursive;
+}
+
+section {
+    padding: 2em 5em 5em 2em;
+    transition: all 0.5s ease;
+}
+
+button[type=submit]:hover {
+    background: #87FF9B;
+}
+
+input[type=submit]:hover {
+    background: #a3d5ff;
+}
+
+ul li:hover a {
+    padding-left: 1em;
+    transition: 0.6s;
+}
+
+label #btn,
+label #cancel {
+    position: absolute;
+    cursor: pointer;
+    border-radius: 0.1em;
+}
+
+label #btn {
+    left: 1em;
+    top: 2.1em;
+    font-size: 2.5em;
+    color: #a3d5ff;
+    padding: 0.2em;
+    border: #bdaf7b;
+    transition: all 0.5s;
+}
+
+label #cancel {
+    z-index: 1111;
+    left: -5.5em;
+    top: 2.1em;
+    font-size: 2.5em;
+    color: #a3d5ff;
+    padding: 0.2em;
+    transition: all 0.5s ease;
+}
+
+#id_question_paper {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #745959;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
+}
+
+#id_questions {
+    display: block;
+    width: 100%;
+    height: calc(10em);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #745959;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #745959;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+#check {
+    display: none;
+}
+
+#check:checked~.sidebar {
+    left: 0;
+}
+
+#check:checked~label #btn {
+    left: 2em;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#check:checked~label #cancel {
+    left: 5.5em;
+}
+
+#check:checked~section {
+    margin-left: 20em;
+}
+
+.showPasswordToggle {
+    cursor: pointer;
+    transition: all;
+}
+
+.showPasswordToggle:hover {
+    transform: scale(1.2);
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+.sidebar {
+    border-radius: 0.5em;
+    position: fixed;
+    top: 5em;
+    left: -16em;
+    width: 17em;
+    height: 100%;
+    background: white;
+    transition: all .5s ease;
+    z-index: 1;
+    box-shadow: 0.3em 0.3em 0.2em #d6d6d6;
+}
+
+.sidebar header {
+    font-size: 2em;
+    color: #745959;
+    text-align: center;
+    line-height: 2em;
+    background: none;
+    user-select: none;
+}
+
+.sidebar ul a {
+    color: #745959;
+}
+
+.sidebar li {
+    display: block;
+    width: 100%;
+    line-height: 2em;
+    font-size: 1.5em;
+    color: #745959;
+    padding-left: 1.5em;
+    box-sizing: border-box;
+    border-top: 0.1em solid rgba(116, 89, 89, 0.1);
+}
+
+.sidebar ul a i {
+    margin-right: 10em;
+}
+
+.cards {
+    width: 25em;
+    height: 15em;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #cfe9ff;
+}
+
+.distribute {
+    padding-left: 5em;
+    display: grid;
+    grid-template-columns: 33.33% 33.33% auto;
+}
+
+.jumbotron {
+    padding-top: 5em;
+    padding-bottom: 15em;
+}
+
+.cards h2 {
+    display: none;
+}
+
+.cards:hover h1 {
+    display: none;
+    transition: all 0.3s ease;
+}
+
+.cards:hover h2 {
+    display: flex;
+    text-align: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    transition: all 0.3s ease;
+}
+
+.cards:hover {
+    transform: translateX(-0.5em);
+    transform: translateY(-0.5em);
+    box-shadow: 0.7em 0.7em 0.5em #d6d6d6;
+    transition: 0.3s ease;
+}
+
+.row {
+    display: grid;
+    padding: 5% 15% 20% 10%;
+    background: rgba(0, 0, 0, 0.5);
+    grid-template-columns: 40% auto;
+}
+
+.overlay {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+.distribute {
+    padding-left: 5em;
+    display: grid;
+    grid-template-columns: 33.33% 33.33% auto;
+}
+
+.jumbotron {
+    padding-top: 5em;
+    padding-bottom: 15em;
+}

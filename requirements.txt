@@ -1,0 +1,13 @@
+﻿-i https://pypi.org/simple/
+argon2-cffi
+asgiref
+bcrypt
+cffi
+Django
+emailvalidator
+Pillow
+pycparser
+pytz
+six
+sqlparse
+validate-email
