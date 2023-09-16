@@ -26,7 +26,7 @@ def format_time(seconds):
 
 
 @login_required(login_url='units:login')
-def view_games_creator(request):
+def games_creator(request):
     creator = request.user
 
     creator_user = User.objects.get(username=creator)
@@ -47,7 +47,7 @@ def view_games_creator(request):
 
                 form.save_m2m()
 
-                return redirect('questions:view_games')
+                return redirect('questions:games')
 
         games = Game.objects.filter(creator=creator)
 
@@ -57,9 +57,9 @@ def view_games_creator(request):
             'creator': creator
         }
 
-        return render(request, 'games/main-game.html', context)
+        return render(request, 'games/game.html', context)
 
-    return redirect('questions:view_games_participant')
+    return redirect('questions:game_participant')
 
 
 @login_required(login_url='units:login')
@@ -93,9 +93,9 @@ def add_question_paper(request):
             'creator': creator
         }
 
-        return render(request, 'games/add-question.html', context)
+        return render(request, 'games/add-question-paper.html', context)
 
-    return redirect('questions:view_games_participant')
+    return redirect('questions:game_participant')
 
 
 @login_required(login_url='units:login')
@@ -131,11 +131,11 @@ def add_questions(request):
 
         return render(request, 'games/add-questions.html', context)
 
-    return redirect('questions:view_games_participant')
+    return redirect('questions:game_participant')
 
 
 @login_required(login_url='units:login')
-def view_previous_games_creator(request):
+def previous_games_creator(request):
     creator = request.user
 
     games = Game.objects.filter(creator=creator)
@@ -149,7 +149,7 @@ def view_previous_games_creator(request):
 
 
 @login_required
-def participant_view_previous(request):
+def previous_participant(request):
     games = Game.objects.all()
 
     uncompleted = []
@@ -171,7 +171,7 @@ def participant_view_previous(request):
 
 
 @login_required(login_url='units:login')
-def view_participants_creator(request):
+def participants_creator(request):
     participants = User.objects.filter(groups__name='Participant')
 
     participant_name = []
@@ -179,14 +179,14 @@ def view_participants_creator(request):
     count = 0
     dicts = {}
 
-    gamen = Game.objects.filter(creator=request.user)
+    games = Game.objects.filter(creator=request.user)
 
     for participant in participants:
         participant_name.append(participants.username)
 
         count = 0
 
-        for game in gamen:
+        for game in games:
             count += ParticipantGame.objects.filter(participant=participant, game_name=game.name, completed=1).exists()
 
         participant_completed.append(count)
@@ -202,7 +202,7 @@ def view_participants_creator(request):
 
 
 @login_required(login_url='units:login')
-def view_results_creator(request):
+def display_results_creator(request):
     participants = User.objects.filter(groups__name='Participant')
 
     dicts = {}
@@ -224,11 +224,11 @@ def view_results_creator(request):
         'participants': dicts
     }
 
-    return render(request, 'games/participants-results.html', context)
+    return render(request, 'games/results.html', context)
 
 
 @login_required
-def view_games_participant(request):
+def game_participant(request):
     games = Game.objects.all()
 
     uncompleted = []
@@ -246,11 +246,11 @@ def view_games_participant(request):
         'completed': completed
     }
 
-    return render(request, 'games/main-game-participants.html', context)
+    return render(request, 'games/game-participants.html', context)
 
 
 @login_required
-def view_participant_attendance(request):
+def participant_attendance(request):
     games = Game.objects.all()
 
     uncompleted = []
@@ -272,10 +272,11 @@ def view_participant_attendance(request):
 
 
 @login_required
-def appear_game(request,id):
+def get_game(request, game_id):
     participant = request.user
+    
     if request.method == 'GET':
-        game = Game.objects.get(pk=id)
+        game = Game.objects.get(pk=game_id)
 
         time_delta = game.end_time - game.start_time
 
@@ -292,7 +293,7 @@ def appear_game(request,id):
             'seconds': seconds
         }
 
-        return render(request, 'games/start-game.html', context)
+        return render(request, 'games/start.html', context)
 
     if request.method == 'POST' :
         participant = User.objects.get(username=request.user.username)
@@ -371,14 +372,14 @@ def appear_game(request,id):
         results.games.add(participant[0])
         results.save()
 
-        return redirect('questions:view_games_participant')
+        return redirect('questions:game_participant')
 
 
 @login_required
-def result(request,id):
+def result(request, result_id):
     participant = request.user
 
-    game = Game.objects.get(pk=id)
+    game = Game.objects.get(pk=result_id)
 
     score = ParticipantGame.objects.get(participant=participant,game_name=game.name,question_paper=game.QuestionPaper).score
 

@@ -10,8 +10,8 @@ function getCookie(name) {
     }
 }
 
-const passwordfield = document.querySelector('#passwordfield');
-const usernamefield = document.querySelector('#usernamefield');
+const password = document.querySelector('#password');
+const username = document.querySelector('#username');
 const emailfield = document.querySelector('#emailfield');
 const showPasswordToggle = document.querySelector('.showPasswordToggle');
 const emailfeedBack = document.querySelector('.email-feedback');
@@ -21,19 +21,19 @@ const usernamevalidOut = document.querySelector('.usernamevalidOut');
 const handlePasswordToggle = (e) => {
     if (showPasswordToggle.textContent == 'SHOW') {
         showPasswordToggle.textContent = 'HIDE';
-        passwordfield.setAttribute('type', 'text');
+        password.setAttribute('type', 'text');
     } else {
         showPasswordToggle.textContent = 'SHOW';
-        passwordfield.setAttribute('type', 'password');
+        password.setAttribute('type', 'password');
     }
 }
 
 showPasswordToggle.addEventListener('click', handlePasswordToggle);
 
-usernamefield.addEventListener('keyup', (e) => {
+username.addEventListener('keyup', (e) => {
     usernameValue = e.target.value;
     usernamevalidOut.style.display = 'block';
-    usernamefield.classList.remove('is-invalid');
+    username.classList.remove('is-invalid');
     feedBackField.style.display = 'none';
 
     if (usernameValue.length > 0) {
@@ -52,7 +52,7 @@ usernamefield.addEventListener('keyup', (e) => {
 	        usernamevalidOut.style.display = 'none';
 
 	        if (data.username_error) {
-	            usernamefield.classList.add('is-invalid');
+	            username.classList.add('is-invalid');
 	            feedBackField.style.display = 'block';
 	            feedBackField.innerHTML = `<p>${data.username_error}</p>`;
 	        }

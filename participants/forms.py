@@ -8,9 +8,9 @@ class ParticipantForm(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'password']
         widgets = {
-            'password': forms.PasswordInput(attrs={'id': 'passwordfield', 'class': 'form-control'}),
+            'password': forms.PasswordInput(attrs={'id': 'password', 'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'id': 'emailfield', 'class': 'form-control'}),
-            'username': forms.TextInput(attrs={'id': 'usernamefield', 'class': 'form-control'})
+            'username': forms.TextInput(attrs={'id': 'username', 'class': 'form-control'})
         }
 
 
