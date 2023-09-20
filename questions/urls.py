@@ -13,6 +13,6 @@ urlpatterns = [
     path('participant/games/', views.game_participant, name='game_participant'),
     path('participant/previous/', views.previous_participant, name='previous_participant'),
     path('participant/attendance/', views.participant_attendance, name='participant_attendance'),
-    path('participant/display/<int:id>', views.game, name='game'),
-    path('participant/result/<int:id>', views.result, name='result')
+    path('participant/display/<int:id>', views.get_game, name='game'),
+    path('participant/result/<int:id>', views.get_result, name='result')
 ]

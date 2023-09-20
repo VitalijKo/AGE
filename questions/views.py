@@ -376,7 +376,7 @@ def get_game(request, game_id):
 
 
 @login_required
-def result(request, result_id):
+def get_result(request, result_id):
     participant = request.user
 
     game = Game.objects.get(pk=result_id)
